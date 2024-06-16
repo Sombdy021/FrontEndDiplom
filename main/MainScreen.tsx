@@ -19,10 +19,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { styles, colors } from '../styles/GlobalStyles';
 import ProfilesScreen, { screenName as ProfileName } from './Profile';
 import HistoryScreen, { screenName as HistoryName } from "./HistoryScreen";
+import ArticleListScreen, { screenName as ArticleListName } from "./ArticleListScreen";
 import { RootStackParamList, Transaction } from "./types";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { UserContext } from "./usercontext";
 import { TransactionsContext } from "./TransactionsContext";
+import ProgressChart from "react-native-chart-kit/dist/ProgressChart";
 
 export const screenName = 'Main';
 
@@ -32,6 +34,8 @@ type MainScreenRouteProp = RouteProp<RootStackParamList, 'Main'>;
 const { width } = Dimensions.get("window");
 const chartWidth = width * 0.9;
 const chartHeight = 200;
+
+const screenWidth = Dimensions.get('window').width;
 
 export default function Main() {
   const navigation = useNavigation<MainScreenNavigationProp>();
@@ -113,6 +117,11 @@ export default function Main() {
     }
   };
 
+  const data = {
+    labels: ["Progress"], // Можете изменить лейбл, если нужно
+    data: [savingsGoal > 0 ? 0.3 : 0] // Пример данных для прогресса (0.5 = 50%)
+  };
+
   const getMaxAmount = () => {
     const maxIncome = Math.max(...weekData.map((day) => day.income));
     const maxExpense = Math.max(...weekData.map((day) => day.expense));
@@ -170,7 +179,11 @@ export default function Main() {
       navigation.navigate(ProfileName as never);
     }
   };
-
+  const handleArticle = () => {
+    if (navigation) {
+      navigation.navigate(ArticleListName as never);
+    }
+  };
   const handleHistory = () => {
     if (navigation) {
       navigation.navigate(HistoryName as never);
@@ -360,7 +373,7 @@ export default function Main() {
               borderRadius: 10,
               flex: 1,
               height: 30,
-            }}
+            }} onPress={handleHistory}
           >
             <Text
               style={{
@@ -492,12 +505,23 @@ export default function Main() {
           {savingsGoal > 0 ? (
             // TODO: сделать вместо скучного текста что-то приятненькое
             <>
-              <Text style={{ color: "#777", marginBottom: 10 }}>
+              <Text style={{
+                color: "#737373",
+                marginBottom: 10,
+                
+              }}>
                 Накопите или отложите: {savingsGoal} ₽
               </Text>
-              <Text style={{ color: "#777", marginBottom: 10 }}>
+              <Text style={{
+                color: "#737373",
+
+
+              }}>
                 На вашу цель: {savingsTitleGoal}
               </Text>
+              <TouchableOpacity onPress={handleArticle}>
+                <Text style={{fontFamily: 'SF-Bold', fontSize: 12}}> Статьи для вас! </Text>
+              </TouchableOpacity>
             </>
           ) : null}
           {savingsGoal === 0 && (
@@ -612,7 +636,7 @@ export default function Main() {
               height: "98%",
             }}
           >
-            <View style={{ flexDirection: "row", marginBottom: 20 }}>
+            <View style={{ flexDirection: "row", marginBottom: 20, justifyContent: 'space-between' }}>
               <TouchableOpacity onPress={closeModal}>
                 <Text
                   style={{
@@ -624,8 +648,18 @@ export default function Main() {
                   Закрыть
                 </Text>
               </TouchableOpacity>
-              <Text style={{ fontSize: 16, fontFamily: "SF-Medium" }}>
+              <Text style={{
+                fontSize: 16,
+                fontFamily: "SF-Medium",
+              }}>
                 Добавить доходы
+              </Text>
+              <Text style={{
+                fontSize: 12,
+                fontFamily: "SF-Regular",
+                color: '#F4F4F5'
+              }}>
+                Закрыть
               </Text>
             </View>
 

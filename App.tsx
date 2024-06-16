@@ -21,6 +21,8 @@ import ForgotPasswordScreen, {
   screenName as ForgotPasswordName,
 } from "./main/ForgotPasswordScreen";
 import HistoryScreen, { screenName as HistoryName } from "./main/HistoryScreen";
+import ArticleListScreen, { screenName as ArticleListName } from "./main/ArticleListScreen";
+import CategoriesScreen, { screenName as CategoriesName } from "./main/CategoriesScreen";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -58,39 +60,55 @@ export default function App() {
 
   return (
     <View style={{ width: "100%", height: "100%" }} onLayout={onLayoutRootView}>
-      <UserContext.Provider value={{ Login: username, SetLogin: setUsername }}>
-        <NavigationContainer>
-          <StatusBar style="auto" />
-          <Stack.Navigator initialRouteName={LoginName}>
-            <Stack.Screen
-              name={LoginName}
-              component={LoginScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name={ForgotPasswordName}
-              component={ForgotPasswordScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name={RegistrationName}
-              component={RegistrationScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name={MainName}
-              component={Main}
-              options={{ headerShown: false, statusBarStyle: "auto" }}
-            />
-            <Stack.Screen
-              name={ProfileName}
-              component={ProfilesScreen}
-              options={{ headerShown: false, statusBarStyle: "auto" }}
-            />
-            <Stack.Screen name={HistoryName} component={HistoryScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </UserContext.Provider>
+      <TransactionsProvider>
+        <UserContext.Provider value={{ Login: username, SetLogin: setUsername }}>
+          <NavigationContainer>
+            <StatusBar style="auto" />
+            <Stack.Navigator initialRouteName={LoginName}>
+              <Stack.Screen
+                name={LoginName}
+                component={LoginScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={ForgotPasswordName}
+                component={ForgotPasswordScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={RegistrationName}
+                component={RegistrationScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={MainName}
+                component={Main}
+                options={{ headerShown: false, statusBarStyle: "auto" }}
+              />
+              <Stack.Screen
+                name={ProfileName}
+                component={ProfilesScreen}
+                options={{ headerShown: false, statusBarStyle: "auto" }}
+              />
+              <Stack.Screen 
+                name={HistoryName} 
+                component={HistoryScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={ArticleListName}
+                component={ArticleListScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={CategoriesName}
+                component={CategoriesScreen}
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </UserContext.Provider>
+      </TransactionsProvider>
     </View>
   );
 }

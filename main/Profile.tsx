@@ -15,6 +15,7 @@ import { RootStackParamList } from "./types";
 
 import { styles, colors } from "../styles/GlobalStyles";
 import Main, { screenName as MainName } from "./MainScreen";
+import CategoriesScreen, { screenName as CategoriesName } from "./CategoriesScreen";
 import { UserContext } from "./usercontext";
 
 export const screenName = "Profile";
@@ -40,9 +41,9 @@ export default function ProfilesScreen() {
     // }
   };
   const handleCategories = () => {
-    // if (navigation) {
-    //     navigation.navigate(MainName as never);
-    // }
+    if (navigation) {
+        navigation.navigate(CategoriesName as never);
+    }
   };
   const handleArticle = () => {
     // if (navigation) {
@@ -110,7 +111,7 @@ export default function ProfilesScreen() {
             <Text style={styles.settingButtonText}>Уведомления</Text>
             <Ionicons name="chevron-forward" size={20} color="#EAB308" />
           </TouchableOpacity>
-          <TouchableOpacity style={{ ...styles.profileContainer, height: 40 }}>
+          <TouchableOpacity style={{ ...styles.profileContainer, height: 40 }} onPress={handleCategories}>
             <Text style={styles.settingButtonText}>Категории</Text>
             <Ionicons name="chevron-forward" size={20} color="#EAB308" />
           </TouchableOpacity>

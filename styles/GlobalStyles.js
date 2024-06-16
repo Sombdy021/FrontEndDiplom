@@ -15,6 +15,113 @@ export const colors = {
 export const styles = StyleSheet.create({
   scrollView: {
     flexGrow: 1,
+    paddingVertical: 20,
+    backgroundColor: "#f8f8f8",
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginVertical: 20,
+  },
+  toggleButtons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#e0e0e0",
+    borderRadius: 10,
+    marginVertical: 10,
+  },
+  toggleButton: {
+    flex: 1,
+    paddingVertical: 15,
+    alignItems: "center",
+    borderRadius: 10,
+  },
+  toggleButtonActive: {
+    flex: 1,
+    paddingVertical: 15,
+    alignItems: "center",
+    backgroundColor: colors.primary,
+    borderRadius: 10,
+  },
+  toggleButtonText: {
+    color: "#000",
+    fontSize: 16,
+  },
+  toggleButtonTextActive: {
+    color: "#fff",
+    fontSize: 16,
+  },
+  categoryButton: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 15,
+    backgroundColor: "#fff",
+    marginVertical: 5,
+    borderRadius: 10,
+    elevation: 1,
+  },
+  categoryText: {
+    fontSize: 18,
+  },
+  showSubcategoriesText: {
+    fontSize: 14,
+    color: "gray",
+  },
+  subcategoriesContainer: {
+    padding: 10,
+    backgroundColor: colors.secondaryBackground,
+    borderRadius: 10,
+    marginVertical: 5,
+  },
+  subcategoryButton: {
+    padding: 10,
+    backgroundColor: colors.secondary,
+    borderRadius: 5,
+    marginVertical: 5,
+  },
+  subcategoryText: {
+    color: "#fff",
+    textAlign: "center",
+  },
+  backButton: {
+    marginTop: 20,
+    padding: 15,
+    backgroundColor: "#000",
+    alignItems: "center",
+    borderRadius: 10,
+  },
+  backButtonText: {
+    color: "#fff",
+    fontSize: 18,
+  },
+  errorTextReg: {
+    color: "red",
+    marginBottom: 10,
+  },
+  buttonReg: {
+    backgroundColor: colors.primary,
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  backButtonText: {
+    color: "#fff",
+    fontSize: 18,
+  },
+  registrationLink: {
+    color: colors.primary,
+    fontWeight: "bold",
+  },
+  containerCategories: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: "#fff",
+  },
+  scrollView: {
+    flexGrow: 1,
   },
   containerReg: {
     width: '100%',
