@@ -16,6 +16,8 @@ import { RootStackParamList } from "./types";
 import { styles, colors } from "../styles/GlobalStyles";
 import Main, { screenName as MainName } from "./MainScreen";
 import CategoriesScreen, { screenName as CategoriesName } from "./CategoriesScreen";
+import ArticleListScreen, { screenName as ArticleListName } from "./ArticleListScreen";
+import RegistrationScreen, { screenName as RegistrationName} from "./RegistrationScreen";
 import { UserContext } from "./usercontext";
 
 export const screenName = "Profile";
@@ -46,14 +48,14 @@ export default function ProfilesScreen() {
     }
   };
   const handleArticle = () => {
-    // if (navigation) {
-    //     navigation.navigate(MainName as never);
-    // }
+    if (navigation) {
+        navigation.navigate(ArticleListName as never);
+    }
   };
   const handleAddProfile = () => {
-    // if (navigation) {
-    //     navigation.navigate(MainName as never);
-    // }
+    if (navigation) {
+        navigation.navigate(RegistrationName as never);
+    }
   };
 
   return (
@@ -115,7 +117,7 @@ export default function ProfilesScreen() {
             <Text style={styles.settingButtonText}>Категории</Text>
             <Ionicons name="chevron-forward" size={20} color="#EAB308" />
           </TouchableOpacity>
-          <TouchableOpacity style={{ ...styles.profileContainer, height: 40 }}>
+          <TouchableOpacity style={{ ...styles.profileContainer, height: 40 }} onPress={handleArticle}>
             <Text style={styles.settingButtonText}>Образование</Text>
             <Ionicons name="chevron-forward" size={20} color="#EAB308" />
           </TouchableOpacity>

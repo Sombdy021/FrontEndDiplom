@@ -20,6 +20,7 @@ import { styles, colors } from '../styles/GlobalStyles';
 import ProfilesScreen, { screenName as ProfileName } from './Profile';
 import HistoryScreen, { screenName as HistoryName } from "./HistoryScreen";
 import ArticleListScreen, { screenName as ArticleListName } from "./ArticleListScreen";
+import AnalysisScreen, { screenName as AnaliseName } from "./AnaliseScreen";
 import { RootStackParamList, Transaction } from "./types";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { UserContext } from "./usercontext";
@@ -65,9 +66,10 @@ export default function Main() {
   const [goalInput, setGoalInput] = useState("");
   const [goalTitleInput, setGoalTitleInput] = useState("");
   const [isIncome, setIsIncome] = useState(true);
-  const [selectedDate, setSelectedDate] = useState("01.01.2024");
+  const [selectedDate, setSelectedDate] = useState("19.06.2024");
   const [noteEnabled, setNoteEnabled] = useState(false);
   const [note, setNote] = useState("");
+  const [categoryVisible, setCategoryVisible] = useState(false);
   // const navigation = useNavigation();
 
   // const transactionsContext = useContext(TransactionsContext);
@@ -189,8 +191,14 @@ export default function Main() {
       navigation.navigate(HistoryName as never);
     }
   };
+  const handleAnalise = () => {
+    if (navigation) {
+      navigation.navigate(AnaliseName as never);
+    }
+  }
 
   const selectCategory = () => {
+    setCategoryVisible(!categoryVisible);
     // Реализация выбора категории
   };
 
@@ -354,6 +362,7 @@ export default function Main() {
               marginRight: 10,
               height: 30,
             }}
+            onPress={handleAnalise}
           >
             <Text
               style={{
@@ -428,9 +437,14 @@ export default function Main() {
         >
           {budget > 0 ? (
             // TODO: сделать вместо скучного текста что-то приятненькое
-            <Text style={{ color: "#777", marginBottom: 10 }}>
-              Ваш план по расходам: {budget} ₽
-            </Text>
+            <View>
+              <Text style={{ color: "#777", fontFamily: 'SF-Regular', marginBottom: 10 }}>
+                Ваш план по расходам: {budget} ₽
+              </Text>
+              <TouchableOpacity onPress={handleArticle}>
+                <Text style={{ fontFamily: 'SF-Regular', marginBottom: 5, color: "#777" }}>Посмотрите советы, которые помогут вам!</Text>
+              </TouchableOpacity>
+            </View>
           ) : null}
           {budget === 0 && (
             <>
@@ -508,19 +522,19 @@ export default function Main() {
               <Text style={{
                 color: "#737373",
                 marginBottom: 10,
-                
+                fontFamily: 'SF-Regular',
               }}>
                 Накопите или отложите: {savingsGoal} ₽
               </Text>
               <Text style={{
                 color: "#737373",
-
-
+                marginBottom: 10,
+                fontFamily: 'SF-Regular',
               }}>
                 На вашу цель: {savingsTitleGoal}
               </Text>
               <TouchableOpacity onPress={handleArticle}>
-                <Text style={{fontFamily: 'SF-Bold', fontSize: 12}}> Статьи для вас! </Text>
+                <Text style={{ fontFamily: 'SF-Regular', marginBottom: 5, color: "#777" }}>Советы по конролю бюджета для вас!</Text>
               </TouchableOpacity>
             </>
           ) : null}
@@ -629,7 +643,7 @@ export default function Main() {
         >
           <View
             style={{
-              backgroundColor: "#FFF",
+              backgroundColor: "#E4E4E7",
               borderRadius: 10,
               padding: 20,
               width: "100%",
@@ -663,7 +677,7 @@ export default function Main() {
               </Text>
             </View>
 
-            <Text style={{ fontSize: 16, marginBottom: 10 }}>Сумма</Text>
+            <Text style={{ fontSize: 16, fontFamily: 'SF-Bold', marginBottom: 10 }}>Сумма</Text>
             <View style={{ flexDirection: "row", marginBottom: 20 }}>
               <TextInput
                 style={{
@@ -671,9 +685,18 @@ export default function Main() {
                   height: 40,
                   borderColor: "#CCC",
                   borderWidth: 1,
-                  borderRadius: 5,
+                  borderRadius: 10,
                   padding: 10,
                   marginRight: 10,
+                  backgroundColor: '#FAFAFA',
+                  shadowColor: '000000',
+                  shadowOffset: {
+                    width: 0,
+                    height: 1,
+                  },
+                  shadowOpacity: 0.22,
+                  shadowRadius: 2.22,
+                  elevation: 2,
                 }}
                 keyboardType="numeric"
                 placeholder="Введите значение..."
@@ -687,101 +710,149 @@ export default function Main() {
                   height: 40,
                   justifyContent: "center",
                   alignItems: "center",
-                  backgroundColor: "#E0E0E0",
-                  borderRadius: 5,
+                  borderColor: "#CCC",
+                  backgroundColor: "#FAFAFA",
+                  borderRadius: 10,
+                  shadowColor: '#000000',
+                  shadowOffset: {
+                    width: 0,
+                    height: 1,
+                  },
+                  shadowOpacity: 0.22,
+                  shadowRadius: 2.22,
+                  elevation: 2,
                 }}
               >
                 <Text>✖️</Text>
               </TouchableOpacity>
             </View>
 
-            <View style={{ flexDirection: "row", marginBottom: 20 }}>
+            <View style={{ flexDirection: "row", marginBottom: 20, backgroundColor: '#71717A', borderRadius: 10, padding: 2 }}>
               <TouchableOpacity
                 style={{
                   flex: 1,
-                  backgroundColor: isIncome ? "#007AFF" : "#E0E0E0",
-                  padding: 10,
-                  borderRadius: 5,
+                  backgroundColor: isIncome ? "#F4F4F5" : "#71717A",
+                  padding: 6,
+                  borderRadius: 10,
                   alignItems: "center",
                   marginRight: 5,
                 }}
                 onPress={() => setIsIncome(true)}
               >
-                <Text style={{ color: isIncome ? "#FFF" : "#000" }}>
+                <Text style={{ color: isIncome ? "#171717" : "#F5F5F5" }}>
                   Доходы
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={{
                   flex: 1,
-                  backgroundColor: isIncome ? "#E0E0E0" : "#007AFF",
-                  padding: 10,
-                  borderRadius: 5,
+                  backgroundColor: isIncome ? "#71717A" : "#F4F4F5",
+                  padding: 6,
+                  borderRadius: 10,
                   alignItems: "center",
                   marginLeft: 5,
                 }}
                 onPress={() => setIsIncome(false)}
               >
-                <Text style={{ color: isIncome ? "#000" : "#FFF" }}>
+                <Text style={{ color: isIncome ? "#F5F5F5" : "#171717" }}>
                   Расходы
                 </Text>
               </TouchableOpacity>
             </View>
 
-            <Text style={{ fontSize: 16, marginBottom: 10 }}>
+            <Text style={{ fontSize: 16, marginBottom: 10, fontFamily: 'SF-Bold' }}>
               Выберите категорию
             </Text>
             <TouchableOpacity
               style={{
                 height: 40,
+                backgroundColor: '#FAFAFA',
+                borderColor: "#CCC",
+                borderWidth: 1,
+                borderRadius: 10,
+                padding: 10,
+                justifyContent: "center",
+                shadowColor: '#000000',
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.22,
+                shadowRadius: 2.22,
+                elevation: 2,
+              }}
+              onPress={selectCategory}
+            >
+              <Text style={{ color: "#171717", fontFamily: 'SF-Medium', fontSize: 14 }}>Нажмите чтобы выбрать</Text>
+            </TouchableOpacity>
+
+            {categoryVisible && (
+              <View style={{ backgroundColor: '#71717A', marginBottom: 20, borderRadius: 10, padding: 10 }}>
+                <TouchableOpacity style={{ padding: 10, backgroundColor: '#FAFAFA', borderRadius: 10, marginBottom: 5 }} onPress={() => { /* handle category selection */ }}>
+                  <Text style={{ color: '#171717' }}>Работа</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ padding: 10, backgroundColor: '#FAFAFA', borderRadius: 10, marginBottom: 5 }} onPress={() => { /* handle category selection */ }}>
+                  <Text style={{ color: '#171717' }}>Кешбэк</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ padding: 10, backgroundColor: '#FAFAFA', borderRadius: 10, marginBottom: 5 }} onPress={() => { /* handle category selection */ }}>
+                  <Text style={{ color: '#171717' }}>Подарки</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ padding: 10, backgroundColor: '#FAFAFA', borderRadius: 10, marginBottom: 5 }} onPress={() => { /* handle category selection */ }}>
+                  <Text style={{ color: '#171717' }}>Акции</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ padding: 10, backgroundColor: '#FAFAFA', borderRadius: 10, marginBottom: 5 }} onPress={() => { /* handle category selection */ }}>
+                  <Text style={{ color: '#171717' }}>Фриланс</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+            <Text style={{ fontSize: 16, marginBottom: 10, fontFamily: 'SF-Bold', marginTop: 10 }}>
+              Дополнительные данные
+            </Text>
+            <View style={{
+              backgroundColor: "#F5F5F5",
+              borderRadius: 10,
+              padding: 10,
+              marginBottom: 20,
+              shadowColor: "#000000",
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.22,
+              shadowRadius: 2.22,
+              elevation: 2,
+            }}>
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+              <Text style={{ fontSize: 16, fontFamily: 'SF-Regular' }}>Дата</Text>
+              <Text style={{ fontSize: 16 }}>{selectedDate}</Text>
+            </View>
+            <View style={{ height: 1, backgroundColor: "#CCC", marginVertical: 10 }} />
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+              <Text style={{ fontSize: 16, fontFamily: 'SF-Regular' }}>Заметка</Text>
+              <Switch
+                value={noteEnabled}
+                onValueChange={(value) => setNoteEnabled(value)}
+              />
+            </View>
+          </View>
+
+          {noteEnabled && (
+            <TextInput
+              style={{
+                height: 80,
                 borderColor: "#CCC",
                 borderWidth: 1,
                 borderRadius: 5,
                 padding: 10,
                 marginBottom: 20,
-                justifyContent: "center",
+                textAlignVertical: "top",
               }}
-              onPress={selectCategory}
-            >
-              <Text style={{ color: "#999" }}>Нажмите чтобы выбрать</Text>
-            </TouchableOpacity>
-
-            <Text style={{ fontSize: 16, marginBottom: 10 }}>
-              Дополнительные данные
-            </Text>
-            <View style={{ marginBottom: 20 }}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ fontSize: 16 }}>{selectedDate}</Text>
-                <Switch
-                  value={noteEnabled}
-                  onValueChange={(value) => setNoteEnabled(value)}
-                />
-              </View>
-            </View>
-
-            {noteEnabled && (
-              <TextInput
-                style={{
-                  height: 80,
-                  borderColor: "#CCC",
-                  borderWidth: 1,
-                  borderRadius: 5,
-                  padding: 10,
-                  marginBottom: 20,
-                  textAlignVertical: "top",
-                }}
-                multiline
-                placeholder="Введите текст..."
-                value={note}
-                onChangeText={(text) => setNote(text)}
-              />
-            )}
+              multiline
+              placeholder="Введите текст..."
+              value={note}
+              onChangeText={(text) => setNote(text)}
+            />
+          )}
 
             <TouchableOpacity
               style={{
@@ -819,18 +890,18 @@ export default function Main() {
             }}
           >
             <Text
-              style={{ fontSize: 18, marginBottom: 10, textAlign: "center" }}
+              style={{ fontSize: 18, marginBottom: 10, textAlign: "center", fontFamily: 'SF-Medium' }}
             >
-              Введите бюджет:
+              Укажите ваш бюджет:
             </Text>
             <TextInput
               style={{
                 height: 40,
                 borderColor: "#CCC",
                 borderWidth: 1,
-                borderRadius: 5,
+                borderRadius: 10,
                 padding: 10,
-                marginBottom: 20,
+                marginBottom: 10,
               }}
               keyboardType="numeric"
               placeholder="Бюджет"
@@ -840,13 +911,17 @@ export default function Main() {
             <TouchableOpacity
               style={{
                 backgroundColor: "#EAB308",
-                padding: 15,
+                width: '100%',
+                height: 40,
+                padding: 5,
                 borderRadius: 10,
                 alignSelf: "center",
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
               onPress={updateBudget}
             >
-              <Text style={{ color: "#FFF", fontSize: 16 }}>Сохранить</Text>
+              <Text style={{ color: "#FFF", fontSize: 16, fontFamily: 'SF-Medium' }}>Сохранить</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -871,14 +946,14 @@ export default function Main() {
             <Text
               style={{ fontSize: 18, marginBottom: 10, textAlign: "center" }}
             >
-              Введите денежную цель:
+              Укажите вашу денежную цель:
             </Text>
             <TextInput
               style={{
                 height: 40,
                 borderColor: "#CCC",
                 borderWidth: 1,
-                borderRadius: 5,
+                borderRadius: 10,
                 padding: 10,
                 marginBottom: 20,
               }}
@@ -890,16 +965,16 @@ export default function Main() {
             <Text
               style={{ fontSize: 18, marginBottom: 10, textAlign: "center" }}
             >
-              На что копите?
+              На что вы копите?
             </Text>
             <TextInput
               style={{
                 height: 40,
                 borderColor: "#CCC",
                 borderWidth: 1,
-                borderRadius: 5,
+                borderRadius: 10,
                 padding: 10,
-                marginBottom: 20,
+                marginBottom: 10,
               }}
               keyboardType="numeric"
               placeholder="Машина..."
@@ -909,9 +984,13 @@ export default function Main() {
             <TouchableOpacity
               style={{
                 backgroundColor: "#EAB308",
-                padding: 15,
+                width: '100%',
+                height: 40,
+                padding: 5,
                 borderRadius: 10,
                 alignSelf: "center",
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
               onPress={updateSavingsGoal}
             >

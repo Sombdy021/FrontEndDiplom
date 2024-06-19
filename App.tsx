@@ -23,6 +23,7 @@ import ForgotPasswordScreen, {
 import HistoryScreen, { screenName as HistoryName } from "./main/HistoryScreen";
 import ArticleListScreen, { screenName as ArticleListName } from "./main/ArticleListScreen";
 import CategoriesScreen, { screenName as CategoriesName } from "./main/CategoriesScreen";
+import AnalysisScreen, { screenName as AnaliseName } from "./main/AnaliseScreen";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -103,6 +104,11 @@ export default function App() {
               <Stack.Screen
                 name={CategoriesName}
                 component={CategoriesScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={AnaliseName}
+                component={AnalysisScreen}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>

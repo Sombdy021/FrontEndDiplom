@@ -95,10 +95,6 @@ export const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
   },
-  errorTextReg: {
-    color: "red",
-    marginBottom: 10,
-  },
   buttonReg: {
     backgroundColor: colors.primary,
     padding: 15,
@@ -108,10 +104,6 @@ export const styles = StyleSheet.create({
   backButtonText: {
     color: "#fff",
     fontSize: 18,
-  },
-  registrationLink: {
-    color: colors.primary,
-    fontWeight: "bold",
   },
   containerCategories: {
     flex: 1,
@@ -161,6 +153,7 @@ export const styles = StyleSheet.create({
   errorTextReg: {
     color: 'red',
     marginBottom: 15,
+    color: '#A16207',
   },
   registrationLink: {
     color: '#A16207',
